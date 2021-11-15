@@ -1,0 +1,164 @@
+package uppercomputers.Conn;
+import uppercomputers.Data.SqlConn;
+import java.sql.Statement;
+import java.sql.SQLException;
+
+public class EstablishDatabase{
+
+   //SqlConn conn = null;
+   //connection = SqlConn.getNewConnection();
+    //SqlConn conect = new SqlConn();
+    //conect.getNewConnection();
+    
+    //SqlConn  db = new SqlConn();    //it's working
+    //db.getNewConnection();          //it's working
+    
+    SqlConn conect = new SqlConn();
+    
+    public void  createDb() throws SQLException{
+    
+        
+        String sqlCreate =
+            "USE master"
+
+            + " IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'UpperComputers') "
+            + " BEGIN "
+            +   "  CREATE DATABASE UpperComputers "
+            + " END; ";  
+
+        try{
+            Statement stmt = conect.getNewConnection().createStatement();
+            stmt.executeUpdate(sqlCreate);
+            stmt.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+     
+    }
+     
+    
+    public void  createTables() throws SQLException{
+   
+        
+        String sqlCreate =      
+            " IF EXISTS (SELECT * FROM sys.databases WHERE name = 'UpperComputers') "
+            + " BEGIN "
+            + " USE UpperComputers "
+            
+            +"IF NOT EXISTS (select * from sysobjects where name='recurso' and xtype='U')"
+            + " CREATE TABLE recurso("
+            +    "numero_registro   INT IDENTITY(1,1)   PRIMARY KEY,"
+            +    "nome_recurso      VARCHAR(50)         NOT NULL,"
+            +    "sobrenome_recurso VARCHAR(50)         NOT NULL,"
+            +    "cod_cargo         INT                 NOT NULL,"
+            +    "cod_equipe        INT                 NOT NULL"
+            +")"
+ 
+            +"IF NOT EXISTS (select * from sysobjects where name='cargo' and xtype='U')"
+            + "   CREATE TABLE cargo("
+            +    "cod_cargo         INT IDENTITY(1,1)   PRIMARY KEY,"
+            +    "nome_cargo        VARCHAR(100)        NOT NULL,"
+            +    "salario           FLOAT               NOT NULL,"
+            +")"
+                
+            +"IF NOT EXISTS (select * from sysobjects where name='cargo_recurso' and xtype='U')"                
+            +" CREATE TABLE cargo_recurso("
+            +    "cod_cargo         INT IDENTITY(1,1)   PRIMARY KEY,"
+            +    "numero_registro   INT                 NOT NULL,"
+            +    "data              DATE                NOT NULL,"
+            +    "descricao         VARCHAR(255)        NOT NULL,"
+            +    "salario           FLOAT               NOT NULL,"
+            +    "atual             BIT                 NOT NULL,"
+            +")"
+            +" END;";
+            /*
+            +"IF NOT EXISTS (select * from sysobjects where name='telefone' and xtype='U')"
+            +" CREATE TABLE telefone("
+            +    "tipo_telefone CHAR(10) NOT NULL,"
+            +    "Numero VARCHAR(11) NOT NULL,"
+            +    "numero_registro INT FOREIGN KEY REFERENCES recurso(numero_registro)"
+
+            +")"
+            
+            +"IF NOT EXISTS (select * from sysobjects where name='endereco' and xtype='U')"
+            +"  CREATE TABLE endereco("
+            +    "cidade VARCHAR(15) NOT NULL,"
+            +    "estado CHAR(2) NOT NULL,"
+            +    "cep CHAR(11),"
+            +    "logradouro VARCHAR(10),"
+            +    "numero VARCHAR(6) NOT NULL,"
+            +    "tipo_endereco VARCHAR(20) NOT NULL,"
+            +    "numero_registro int FOREIGN KEY REFERENCES recurso(numero_registro)"
+            +")"
+
+            +"IF NOT EXISTS (select * from sysobjects where name='ferramenta' and xtype='U')"
+            +"  CREATE TABLE ferramenta ("
+            +    "nome VARCHAR(30) NOT NULL,"
+            +    "versao VARCHAR(10) NOT NULL,"
+            +    "cod_ferramenta INT IDENTITY(1,2) PRIMARY KEY, "
+            +")"
+
+            +"IF NOT EXISTS (select * from sysobjects where name='ferramenta_programador' and xtype='U')"
+            +"  CREATE TABLE ferramenta_programador ("
+            +    "cod_ferramenta INT FOREIGN KEY REFERENCES ferramenta(cod_ferramenta),"
+            +    "numero_registro INT FOREIGN KEY REFERENCES recurso(numero_registro)"
+            +")"
+            
+            +"IF NOT EXISTS (select * from sysobjects where name='equipe' and xtype='U')"
+            +"  CREATE TABLE equipe ("
+            +    "cod_equipe INT IDENTITY(1,1) PRIMARY KEY,"
+            +    "nome VARCHAR(100) NOT NULL,"
+            +    "numero_recursos INT NOT NULL);"
+            +"  CREATE TABLE gerente ("
+            +    "numero_registro INT FOREIGN KEY REFERENCES recurso(numero_registro)"
+            +")" 
+            
+            +"IF NOT EXISTS (select * from sysobjects where name='status' and xtype='U')"
+            +"  CREATE TABLE status("
+            +"cod_status INT IDENTITY(1,1) PRIMARY KEY,"
+            +"descricao VARCHAR(200));"
+            
+            +"IF NOT EXISTS (select * from sysobjects where name='projeto' and xtype='U')"
+            +"  CREATE TABLE projeto ("
+            +    "cod_projeto INT IDENTITY(1,1) PRIMARY KEY, "
+            +    "nome VARCHAR(100) NOT NULL,"
+            +    "data_inicio DATETIME NOT NULL,"
+            +    "data_prevista_termino DATETIME NOT NULL,"
+            +    "data_termino_real DATETIME NOT NULL,"
+            +    "numero_hora_prevista INT NOT NULL,"
+            +    "hora_real_utilizada INT NOT NULL,"
+            +    "cod_equipe INT FOREIGN KEY REFERENCES equipe(cod_equipe),"
+            +    "cod_status INT"
+            +")"
+        
+            +"ALTER TABLE projeto"
+            +"ADD fk_cod_status INT FOREIGN KEY (cod_status) REFERENCES projetos_status(cod_status)"
+
+            +"ALTER TABLE projeto_atividade "
+            +"ADD fk_cod_atividade INT FOREIGN KEY (cod_atividade) REFERENCES atividade(cod_atividade)"
+            
+            +"IF NOT EXISTS (select * from sysobjects where name='atividade' and xtype='U')"
+            +"  CREATE TABLE atividade ("
+            +    "cod_atividade INT IDENTITY(1,1) PRIMARY KEY,"
+            +    "nome VARCHAR(100) NOT NULL);"
+        
+            +"IF NOT EXISTS (select * from sysobjects where name='tarefa' and xtype='U')"
+            +"  CREATE TABLE tarefa ("
+            +"cod_tarefa INT IDENTITY(1,1) PRIMARY KEY,"
+            +"descricao VARCHAR(200) NOT NULL,"
+            +"cod_atividade INT FOREIGN KEY REFERENCES atividade(cod_atividade))"
+            
+            +" END;";
+            */
+       
+        try{
+            Statement stmt = conect.getNewConnection().createStatement();
+            stmt.executeUpdate(sqlCreate);
+            stmt.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }  
+}
