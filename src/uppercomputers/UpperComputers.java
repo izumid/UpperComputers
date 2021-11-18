@@ -103,10 +103,10 @@ public class UpperComputers {
         Equipe equipe1 = new Equipe(54,111,"Caçadores de trolls",5);
 
         //Method to clean all tables data
-       //DeleteData deleteData = new DeleteData();
+        //DeleteData deleteData = new DeleteData();
 
         //Specific table to clean data SchemeName, TableName
-       // DeleteData deleteData = new DeleteData("Project","projeto");
+        //DeleteData deleteData = new DeleteData("Project","projeto");
 
     }
     
