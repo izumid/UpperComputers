@@ -21,6 +21,8 @@ public class SqlConn{
             return conn;
         }
         catch (SQLException e) {
+            System.out.println("ERROR in SQL Connection: " + e);
+            conn = null;
             return null;
         }  
     }
