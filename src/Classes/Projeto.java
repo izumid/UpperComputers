@@ -12,20 +12,6 @@ public class Projeto extends InsertConnection implements InsertInto{
     private String status;
     private int numero_hora_prevista;
     private String lingugagem;
-
-    
-    public Projeto(int cod_projeto, String nome, String data_inicio, String data_prevista_termino, String status, int numero_hora_prevista, String lingugagem) throws SQLException{
-        this.setCod_projeto(cod_projeto);
-        this.setNome(nome);
-        this.setData_inicio(data_inicio);
-        this.setData_prevista_termino(data_prevista_termino);
-        this.setStatus(status);
-        this.setNumero_hora_prevista(numero_hora_prevista);
-        this.setLingugagem(lingugagem);
-        
-        //call method to pull data to DB
-        this.insertDml();
-    }
     
     public int getCod_projeto() {
         return cod_projeto;
@@ -83,6 +69,20 @@ public class Projeto extends InsertConnection implements InsertInto{
         this.lingugagem = lingugagem;
     }
 
+    public Projeto(int cod_projeto, String nome, String data_inicio, String data_prevista_termino, String status, int numero_hora_prevista, String lingugagem) throws SQLException{
+        this.setCod_projeto(cod_projeto);
+        this.setNome(nome);
+        this.setData_inicio(data_inicio);
+        this.setData_prevista_termino(data_prevista_termino);
+        this.setStatus(status);
+        this.setNumero_hora_prevista(numero_hora_prevista);
+        this.setLingugagem(lingugagem);
+        
+        //call method to pull data to DB
+        this.insertDml();
+    }
+    
+    
     @Override
     public void insertDml() throws SQLException{
         String insertProjectDML = "USE UpperComputers INSERT INTO [UpperComputers].[Project].[projeto] (cod_projeto, nome, data_inicio,data_prevista_termino,status,numero_hora_prevista,linguagem) "
