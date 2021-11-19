@@ -78,10 +78,8 @@ public class Projeto extends InsertConnection implements InsertInto{
         this.setNumero_hora_prevista(numero_hora_prevista);
         this.setLingugagem(lingugagem);
         
-        //call method to pull data to DB
         this.insertDml();
     }
-    
     
     @Override
     public void insertDml() throws SQLException{
